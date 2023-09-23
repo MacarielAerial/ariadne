@@ -1,1 +1,1 @@
-# Example README
+# Ariadne

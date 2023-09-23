@@ -2,6 +2,8 @@ import logging
 import shutil
 from pathlib import Path
 
+import networkx as nx
+from networkx import MultiDiGraph, general_random_intersection_graph
 from pytest import ExitCode, Session, fixture
 
 logger = logging.getLogger(__name__)
@@ -28,6 +30,18 @@ class TestDataPaths:
 @fixture
 def test_data_paths() -> TestDataPaths:
     return TestDataPaths()
+
+
+@fixture
+def random_multidigraph() -> MultiDiGraph:  # type: ignore[no-any-unimported]
+    nx_g = general_random_intersection_graph(
+        num_nodes=100,
+        num_edges=200,
+        node_types=["ntype1", "ntype2"],
+        edge_types=["etype1", "etype2"],
+    )
+
+    return nx_g
 
 
 def pytest_sessionstart(session: Session) -> None:
